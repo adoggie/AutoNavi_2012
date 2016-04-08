@@ -1,0 +1,23 @@
+[
+	{'name':'A.道路出口','key':'a',
+		'subclass':[
+			{'name':'1.高速','key':'1','value':1},
+			{'name':'2.高架','key':'2','value':2},
+			{'name':'3.隧道','key':'3','value':3},
+			{'name':'3.隧道xxx','key':'4','value':31}
+		]
+	},
+	{'name':'B.交通灯','key':'b',
+		'subclass':[
+			{'name':'1.地面','key':'1','value':4},
+			{'name':'2.高架','key':'2','value':5}
+		]
+	},
+	{'name':'C.方向看板','key':'c',
+		'subclass':[
+			{'name':'1.国家','key':'1','value':6},
+			{'name':'2.地方','key':'2','value':7},
+			{'name':'3.景点','key':'3','value':8}
+		]
+	}
+]

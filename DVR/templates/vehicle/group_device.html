@@ -1,0 +1,124 @@
+<script type="text/javascript" src="/static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+//获取要移动的车辆id
+function getIDs(vehicles){
+	var s ="";
+	$(vehicles).find("option:selected").each(function(){
+		s += $(this).val()+","
+	})
+	if(s!=""){
+		s = s.substr(0,s.length-1);
+		return s
+	}else{
+		alert("请选择要移动的车辆")
+		return false
+	}
+}
+
+function reloadVehicles(vehicleSelect,vehicles){
+    // 清空下拉框
+    vehicleSelect.empty()
+    // 创建select选项
+    $(vehicles).each(function(i){
+        vehicle = vehicles[i];
+        vehicleSelect.append("<option value='" + vehicle.pk + "'>" + vehicle.fields.name + "</option>" );
+    })
+}
+
+$(function(){
+    $("#button1,#button2").click(function(){
+    	button = $(this).attr("name")
+         if(!$("#groups1").val()){
+             alert("请选择组车辆组！");
+             return false;
+         }
+         if (!$("#groups2").val()) {
+             alert("请选择组车辆组！");
+             return false;
+         }
+         if ($("#groups1").val() == $("#groups2").val()) {
+             alert("两个组不能相同！");
+             return false;
+         }
+         if(button=="button1"){
+        	 ids = getIDs("#vehicles1")
+         }else{
+        	 ids = getIDs("#vehicles2")
+         }
+         $.post("/device/change_vehicles_group_r/", {
+        	 groups1:$("#groups1").val(),
+        	 groups2:$("#groups2").val(),
+        	 ids: ids,
+        	 button:button,
+             csrfmiddlewaretoken:$("[name=csrfmiddlewaretoken]").val(),
+             },function(data,textStatus){
+            	 var vehicles1 = data.vehicles1
+            	 var vehicles1Select = $("#vehicles1");
+            	 reloadVehicles(vehicles1Select,vehicles1);
+            	 
+            	 var vehicles2 = data.vehicles2
+            	 var vehicles2Select = $("#vehicles2");
+            	 reloadVehicles(vehicles2Select,vehicles2);
+             },"json"
+         );
+    })
+    $("#save").click(function(){
+    	url="/device/vehicle/group/add/"
+    	
+    	$.post(url,{
+    		name:$("#id_name").val(),
+    		csrfmiddlewaretoken:$("[name=csrfmiddlewaretoken]").val(),
+    	},function(data){
+    		alert("成功");
+    		location.reload();
+    	});
+    })
+ })
+function getVehicleOptions(value,groups){
+        var url = "/device/vehicles/"+value+"/"
+        $.getJSON(url, function(json){
+        	//从服务器取得的车辆集
+        	var vehicles = json.vehicles
+        	//要操作的select
+            var vehicleSelect;
+        	if(groups=="groups1"){
+        		vehicleSelect = $("#vehicles1");
+        	}else if(groups=="groups2"){
+        		vehicleSelect = $("#vehicles2");
+        	}
+        	reloadVehicles(vehicleSelect,vehicles)
+        });
+    }
+</script>
+<form action="" method="post"  enctype="multipart/form-data" >{% csrf_token %}
+    {{ form.as_p }}
+<input type="button" id="save" name="save" value="保存" />
+<input type="button" onclick="show()" value="show" />
+
+车辆组
+<select style="width:200px" class="group"  id="groups1" onchange="getVehicleOptions(this.value,'groups1')">
+<option value ="0">未分组</option>
+{% for group in groups %}
+  <option value ="{{group.id}}">{{group}}</option>
+ {% endfor %}
+</select>
+<select multiple="multiple" size="10" class="vehicles" id="vehicles1"  style="width:200px;height:165" >
+{% for group in vehicles %}
+  <option value ="{{group.id}}">{{group}}</option>
+ {% endfor %}
+</select>
+ <input type="button" value=">>" name="button1" id="button1"/>
+ <input type="button" value="<<" name="button2" id="button2" />
+车辆组
+<select style="width:200px" class="group"  id="groups2" onchange="getVehicleOptions(this.value,'groups2')">
+<option value ="0">未分组</option>
+{% for group in groups %}
+  <option value ="{{group.id}}">{{group}}</option>
+ {% endfor %}
+</select>
+<select  multiple="multiple" class="vehicles" id="vehicles2" style="width:200px;height:165">
+{% for group in vehicles %}
+  <option value ="{{group.id}}">{{group}}</option>
+ {% endfor %}
+</select>
+

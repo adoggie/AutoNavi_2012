@@ -1,0 +1,28 @@
+{
+	"id":"node-1",
+	"filesvc":("192.168.1.65",12003),
+	"mediasvc":("192.168.1.65",12004),
+	"update_interval":10 ,
+	"zones": [
+				{ "id":"zone1","path":"r:/images",
+						"tempdir":"r:/tempdir","lowater":500,"enable":false},
+				{ "id":"zone2","path":"s:/images",
+						"tempdir":"s:/tempdir","lowater":500,"enable":false},
+				{ "id":"zone3","path":"e:/dvr_images/images",
+                    	"tempdir":"e:/dvr_images/tempdir","lowater":500,"enable":true}
+			],
+	"trpfix":"",
+	"trpfixroad":"./trpmapfix.exe",
+	"ffmpeg":".",
+	"idxthread":1,
+	"idxthread_wait":5,
+	"statusreport_interval":5,
+	"remove_mov":false,
+	"cvtcmd":"c:/dvr_bin/ffmpeg.exe -r 15 -i  %s -b 8000k -r 15  %s",
+	"bitrate":"8000k",
+	"ctrlserver":("192.168.1.65",12002),
+	"db":{ "name":"stoimg","host":"192.168.1.19","port":5432,"user":"postgres","passwd":"111111"},
+	"rebuildimages_fromlocal":false,
+	"image_convert":false,
+	"END":0
+}

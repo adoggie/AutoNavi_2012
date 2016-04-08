@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Frame</class>
+ <widget class="QDialog" name="Frame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>729</width>
+    <height>610</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <widget class="QTableWidget" name="tab_node">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>711</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>节点编号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>节点地址</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>节点状态</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>当前连接数</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>最大空间(MB)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>已用空间(MB)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>空间利用率</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QTableWidget" name="tab_zone">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>711</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>节点编号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>节点地址</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>存储区编号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>存储区路径</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>最大空间(MB)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>已用空间(MB)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>空间利用率</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="btn_refurbish">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>570</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>刷新</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_close">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>570</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>711</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>系统总览</string>
+   </property>
+   <widget class="QLineEdit" name="edt_onlinezone">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>60</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>30</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>在线节点/节点总数</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edt_onlinenode">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>30</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>空间利用率</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>系统总空间(MB)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>剩余总空间(MB)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edt_sysfree">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>50</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edt_sysavail">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>80</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="edt_sysall">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>20</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>60</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>在线存储区/存储区总数</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>btn_refurbish</tabstop>
+  <tabstop>btn_close</tabstop>
+  <tabstop>edt_sysall</tabstop>
+  <tabstop>edt_sysfree</tabstop>
+  <tabstop>edt_sysavail</tabstop>
+  <tabstop>edt_onlinenode</tabstop>
+  <tabstop>edt_onlinezone</tabstop>
+  <tabstop>tab_node</tabstop>
+  <tabstop>tab_zone</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btn_close</sender>
+   <signal>clicked()</signal>
+   <receiver>Frame</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>653</x>
+     <y>581</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>580</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

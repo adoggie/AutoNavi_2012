@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" 
+			   minHeight="600" xmlns:org="http://openscales.org" creationComplete="init()">
+	<s:layout>
+		<s:VerticalLayout gap="1"/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import autonavi.dvr.ImagePath;
+			import autonavi.dvr.ImagePathLineData;
+			
+			import com.sw2us.newgis.ActiveObjectEvent;
+			import com.sw2us.newgis.AoCollector;
+			import com.sw2us.newgis.AppCore;
+			import com.sw2us.newgis.AppResource;
+			import com.sw2us.newgis.util.HashMap;
+			
+			import flashx.textLayout.tlf_internal;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.events.CloseEvent;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import org.openscales.core.StringUtils;
+			import org.openscales.core.events.FeatureEvent;
+			import org.openscales.core.events.MapEvent;
+			import org.openscales.core.feature.CustomMarker;
+			import org.openscales.core.feature.Feature;
+			import org.openscales.core.feature.LineStringFeature;
+			import org.openscales.core.feature.MultiPolygonFeature;
+			import org.openscales.core.feature.PointFeature;
+			import org.openscales.core.feature.PolygonFeature;
+			import org.openscales.core.format.WKTFormat;
+			import org.openscales.core.layer.FeatureLayer;
+			import org.openscales.core.style.Rule;
+			import org.openscales.core.style.Style;
+			import org.openscales.core.style.fill.SolidFill;
+			import org.openscales.core.style.stroke.Stroke;
+			import org.openscales.core.style.symbolizer.PolygonSymbolizer;
+			import org.openscales.core.style.symbolizer.Symbolizer;
+			import org.openscales.geometry.LineString;
+			import org.openscales.geometry.Point;
+			import org.openscales.geometry.Polygon;
+			import org.openscales.geometry.basetypes.*;
+			
+			private var _layerRoads:FeatureLayer = null;
+			private var _layerSymbol:FeatureLayer = null;
+			
+			private var _imagepathes:HashMap = new HashMap();
+			private var _symbol:CustomMarker ;
+			
+			private function init():void{			
+				//this.layerchina.url =AppCore.instance().getMapServerUrl();
+				//this.layerchina.layer.redraw();
+				
+				//pyamf.uri = AppCore.instance().getAmfServerUrl();				
+				_layerRoads = new FeatureLayer("roads");
+				fxmap.map.addLayer(_layerRoads);
+				_layerSymbol = new FeatureLayer("symbol");
+				fxmap.map.addLayer(_layerSymbol);
+				var defloc:Location = new Location(121.4831,31.1290);
+				_symbol = CustomMarker.createDisplayObjectMarker( AppResource.instance().getAoBitmapByAngle(0),defloc);
+				_layerSymbol.addFeature(_symbol);
+				
+				
+				//currGeobject = CustomMarker.createDisplayObjectMarker(new _marker(),new Location(0,0),	null);
+				//_layer_geo.addFeature(currGeobject);
+				
+				var id:String;
+				var server:String;
+				
+				id = FlexGlobals.topLevelApplication.parameters.id;
+				server = FlexGlobals.topLevelApplication.parameters.server;				
+				if(id==null){
+					//Alert.show("无效的访问,请从影像控制台开启地图!");
+					//return 
+				}
+				if( server == null){
+					server = "sw2us.com";	
+				}
+				AppCore.instance().getAoCollector().getAoChannel().open(server,12788);
+				AppCore.instance().getAoCollector().addEventListener(ActiveObjectEvent.AO_DATA,onNetMessageJson);
+				
+					
+				fxmap.map.addEventListener(FeatureEvent.FEATURE_CLICK,onFeatureClick);
+				fxmap.map.addEventListener(FeatureEvent.FEATURE_OUT,onFeatureOut);
+				fxmap.map.addEventListener(MapEvent.MOVE_END,onMapMoveEnd);
+				
+				fxmap.map.moveTo( new Location(121.4831,31.1290));
+				
+				//this.layerchina.url = AppCore.instance().getMapServerUrl();
+				//this.layerchina.layer.redraw();
+			}
+			
+			protected function onNetMessageJson(evt:ActiveObjectEvent):void{
+				var m:Object;
+				m = evt.data;
+				if (!m.hasOwnProperty("msg")){
+					trace("unknow message");
+					return ;
+				}
+				trace(m.msg);
+				if(m.msg == "plugin_clearimagepath_2"){
+					this.onImagePathClear(m);
+					return;
+				}
+				if(m.msg =="plugin_showimagepathonmap_2"){
+					this.onImagePathLoad(m);
+					return;
+				}
+				if(m.msg =="plugin_imagepathselected_2"){
+					this.onImagePathSelected(m);
+					return;
+				}
+				if(m.msg =="plugin_showsymbol_2"){
+					this.onShowSymbol(m);
+				}
+			}
+			
+			// m - {show,pos} pos-{lon,lat,time,speed,angle}
+			//显示车辆图标
+			protected function onShowSymbol(m:Object):void{
+				//trace(m.pos.toString());
+				_symbol.loadDisplayObject(AppResource.instance().getAoBitmapByAngle( m.pos.angle));
+				_symbol.geometry = new org.openscales.geometry.Point(m.pos.lon,m.pos.lat);
+				_symbol.draw();
+				var dt:Date = new Date();
+				trace(m.pos.time);
+				dt.time = m.pos.time*1000;
+				_txtSymbol.text="运行参数:\n"+" 位置:"+m.pos.lon.toString()+","+m.pos.lat.toString() +
+					"; 速度:"+m.pos.speed.toString()+";方位:"+m.pos.angle.toString()+
+					";时间:"+ dt.toLocaleString();
+				
+			}
+			// imageplay端选择影像记录，发送消息到此
+			//  m - {id}
+			protected function onImagePathSelected(m:Object):void{
+				var id:String = m.id as String;
+				if (!this._imagepathes.containsKey(id)){
+					return ;
+				}
+				var n:uint;
+				var ids:Array;
+				ids = this._imagepathes.getKeys();
+				for( n=0;n< ids.length;n++){
+					//var item:String = ids[n];
+					var path:ImagePath = _imagepathes.getValue(ids[n]) as ImagePath;	
+					if( ids[n] == id){
+						path.setPathSelected(true);
+					}else{
+						path.setPathSelected(false);
+					}
+				}
+				
+			}
+			//MsgPlugin_ImagePathShowOnMap_2
+			// m - {id,lines}
+			protected function onImagePathLoad(m:Object):void{
+					var id:String = m.id as String;
+					var n:uint;
+					var lines:Array = m.lines as Array;
+					var path:ImagePath;
+					path = new ImagePath(this._layerRoads,id,lines);
+					_imagepathes.put(id,path);
+			}
+			//  m - {ids}
+			protected function onImagePathClear(m:Object):void{
+				var n:uint;
+				var pathes:Array;
+				var path:ImagePath;
+				var ids:Array = m.ids as Array;
+				if( ids.length == 0){
+					pathes = _imagepathes.getValues();
+					for(n=0;n<pathes.length;n++){
+						path= pathes[n] as ImagePath;
+						path.destroy();
+					}
+					_imagepathes.clear();
+				}else{
+					for( n=0;n<ids.length;n++){
+						var id:String = ids[n] as String;
+						if( _imagepathes.containsKey( id)){
+							path= _imagepathes.getValue(id);
+							path.destroy();
+							_imagepathes.remove(id);
+						}
+					}
+				}
+			}
+			
+			protected function onMapMoveEnd(event:MapEvent):void{
+				trace(fxmap.map.extent.toString());
+				var m:Object = new Object();
+				m.msg = "plugin_geosightchanged_1";
+				var ext:Bounds = fxmap.map.extent;
+				m.rect = new Array(ext.left,ext.bottom,ext.width,ext.height);
+				AppCore.instance().getAoCollector().getAoChannel().sendMessage(m);
+			} 
+			
+			protected function onFeatureClick(event:FeatureEvent):void{
+				if( event.feature.layer == this._layerRoads){
+					//var ftrs:Vector.<Feature> = _layerRoads.features;
+					var n:uint;
+					var ftr:LineStringFeature = event.feature as LineStringFeature;
+					var d:ImagePathLineData;
+					var keys:Array =this._imagepathes.getKeys();
+					
+					d = ftr.data as ImagePathLineData;
+					
+					for(n=0;n<keys.length;n++){
+						var path:ImagePath = this._imagepathes.getValue(  keys[n] );
+						if( path == d.path){
+							path.setPathSelected(true);	
+							var m:Object = new Object();
+							m.msg = "plugin_imagepathselected_1";
+							m.id = path.getId();
+							m.timestamp = d.gpsdata.first.time;
+							AppCore.instance().getAoCollector().getAoChannel().sendMessage(m);
+						}else{
+							path.setPathSelected(false);
+						}
+					}
+						
+						
+				}// end if
+			}// end onFeatureClick()
+			
+			
+			protected function onFeatureOut(event:FeatureEvent):void{
+				if( event.feature.layer == this._layerRoads){
+					//Alert.show(event.feature.data.name);
+					//txtTips.text = "";
+					
+					//event.feature.style = Style.getDefaultSurfaceStyle();
+					//event.feature.draw();
+					
+					//高亮显示区域
+				}
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				this.layerchina.url = server.text;
+				this.layerchina.layer.redraw();
+				
+			}
+			
+
+			protected function btnSendMsg_clickHandler(event:MouseEvent):void
+			{
+				var m:Object = new Object;
+				m.name="scott"
+				m.list=[1,23];
+				AppCore.instance().getAoCollector().getAoChannel().sendMessage(m);
+				
+				
+			}
+
+
+			protected function btnSymbolPos_clickHandler(event:MouseEvent):void
+			{
+				var geopt:org.openscales.geometry.Point = this._symbol.geometry as org.openscales.geometry.Point;
+				fxmap.map.center = new Location(geopt.x,geopt.y);
+				
+			}
+
+		]]>
+	</fx:Script>
+	<s:BorderContainer width="100%" height="60">
+		<s:Label x="10" y="24" text="影像系统地图演示" fontSize="24"/>
+	</s:BorderContainer>
+	<s:HGroup width="100%" height="100%">
+		<s:Panel width="250" height="100%">
+			<s:Button x="10" y="104" label="连接.." click="button1_clickHandler(event)"/>
+			<s:Label x="10" y="10" text="地图服务器:"/>
+			<s:TextInput x="11" y="29" width="227" text="http://sw2us.com:8001/wms" id="server"/>
+			<s:CheckBox x="10" y="142" label="隐藏非选择道路"/>
+			<s:Label x="10" y="59" text="影像终端"/>
+			<s:TextInput x="10" y="74" width="228" text="localhost,12016"/>
+			<s:Label x="26" y="186" text="蓝色轨迹为路网" color="#1005F6"/>
+			<s:Label x="26" y="206" text="请从播放控制台启动地图显示；车辆图标随视频播放同步移动；点选任意路段轨迹，视频任意跳转&#xd;" height="41" width="200"/>
+			<s:Label x="118" y="186" text="红色为当前选择轨迹" color="#FA0101"/>
+			<s:Button x="133" y="142" label="当前位置.." id="btnSymbolPos" click="btnSymbolPos_clickHandler(event)"/>
+			<s:Label x="23" y="351" height="88" width="200" id="_txtSymbol" text="运行参数:"/>
+			<s:Label x="26" y="255" text="影像系统由调度控制服务器、若干存储节点服务器、网络视频播放器、影像同步服务程序等组成;地图采用wms协议flex方式加载，支持多级缩放显示；&#xd;&#xd;" width="200" height="88"/>
+			<s:Label x="23" y="447" text="v0.1.0     2012.3.28"/>
+		</s:Panel>
+		
+		<org:Map id="fxmap" width="100%" height="100%"  
+				 zoom="11" 
+				 center="121.3614,31.319" >
+			<org:layout>
+				<s:BasicLayout/>
+			</org:layout>
+			<org:WMSC id="layerchina" x="168" y="209"  layers="china" url="http://sw2us.com:8001"		 
+					  resolutions="  0.000005, 0.000008, 0.000012, 0.000018, 0.000024, 0.000047, 0.000119, 0.000237,
+					  0.000474, 0.000948, 0.001660, 0.002371, 0.004742, 0.011854, 0.023708, 0.047416,
+					  0.094833" 
+					  width="88">
+				
+			</org:WMSC>
+			
+			
+			
+			
+			<org:MousePosition numdigits="4.4"  id="llpos" x="10" y="{fxmap.height-20}" width="195"   >
+			</org:MousePosition>
+			<org:DragHandler  />
+			<org:PanZoom x="5" y="5" map="{fxmap.map}" width="94" height="142">
+			</org:PanZoom>
+			
+			<org:ScaleLine id="scaline" x="{fxmap.width - 200}" y="{fxmap.height-80}" map="{fxmap.map}"></org:ScaleLine>	
+			<org:WheelHandler/>
+			
+			<!-- <org:Spinner x="{width / 2}" y="{height / 2}"/> -->
+			<!-- 加载时候的沙漏-->
+			
+			
+			
+			
+		</org:Map>
+	</s:HGroup>
+	<s:HGroup width="100%" height="36">
+	</s:HGroup>
+</s:Application>

@@ -1,0 +1,61 @@
+div.Menu {
+	width: 167px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	color: #fff;
+}
+div.Menu div {
+	background: url(../imgs/title.gif) repeat-x;
+	overflow: hidden;
+}
+div.Menu div:first-child {
+	background: url(../imgs/toptitle.gif) no-repeat;
+}
+div.Menu div.collapsed {
+
+	height: 34px;
+}
+div.Menu div span {
+	display: block;
+	padding: 9px 25px;
+	color: #143F61;
+    height:22px;
+	background: url(../imgs/expanded.gif) no-repeat 10px 13px;
+	cursor:pointer;
+
+}
+
+div.Menu div.collapsed span {
+	background: url(../imgs/collapsed.gif) no-repeat 10px 11px;
+}
+div.Menu div a {
+	padding: 5px 35px;
+  background : #F6F9FD url(../imgs/arrow.gif) no-repeat 10px center;
+	display: block;
+	color: #066;
+	text-decoration: none;
+}
+div.Menu div a.current {
+	background : #ccc;
+	text-decoration: none;
+}
+div.Menu div a:hover 
+{
+
+	background : #E0ECF8 url(../imgs/linkarrow.gif) no-repeat right center;
+	color: red;
+	font-weight: bold;
+	text-decoration: none;
+}
+html,body{margin-left:0px;margin-top:0px;margin-right:0px;
+          background-color:#F6F9FD;
+scrollbar-3dlight-color:#D9E9F6; /*-  -*/
+scrollbar-highlight-color:#fff; /*-  -*/
+scrollbar-face-color:#D9E9F6; /*-  -*/
+scrollbar-arrow-color:#ABCEEB; /*- ͷ -*/
+scrollbar-shadow-color:#D9E9F6; /*- Ҷ -*/
+scrollbar-darkshadow-color:#D9E9F6; /*- һ -*/
+scrollbar-base-color:#D9E9F6; /*- ɫ -*/
+scrollbar-track-color:#EBF3FA;/*-  -*/
+
+	}

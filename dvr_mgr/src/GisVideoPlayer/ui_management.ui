@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>788</width>
+    <height>557</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>影像控制台 v0.2.0  Fks(F8,F9,F10)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>4</y>
+      <width>741</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>条件查询</string>
+    </property>
+    <widget class="QLineEdit" name="edtStart">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>24</y>
+       <width>120</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string>9999-99-99; </string>
+     </property>
+     <property name="text">
+      <string>2012-02-10</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtEnd">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>24</y>
+       <width>120</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string>9999-99-99; </string>
+     </property>
+     <property name="text">
+      <string>2013-06-10</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>开始</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>217</x>
+       <y>25</y>
+       <width>31</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>结束</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtDayHours">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>25</y>
+       <width>120</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string>99-99; </string>
+     </property>
+     <property name="text">
+      <string>8-20</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtGeoRect">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>12,30,177,45</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>54</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>地理视野</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>24</y>
+       <width>61</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>日区间</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnOpenMap">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>10</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>打开地图</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnAbout">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>10</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>关于...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="txtmess">
+     <property name="geometry">
+      <rect>
+       <x>394</x>
+       <y>51</y>
+       <width>61</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>图幅编号</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMessId">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>50</y>
+       <width>121</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>H51F009013</string>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnDoQuery">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>74</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>查询</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cbxImageSet">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>80</y>
+       <width>291</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>82</y>
+       <width>51</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>计划范围</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnSetMessRect">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>42</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>定位</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMaxLines">
+     <property name="geometry">
+      <rect>
+       <x>552</x>
+       <y>80</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string>9999; </string>
+     </property>
+     <property name="text">
+      <string>50</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>496</x>
+       <y>84</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>最大行数</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QTreeWidget" name="listRecords">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>157</y>
+      <width>781</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 11pt &quot;微软雅黑&quot;;
+color: rgb(0, 0, 127);
+</string>
+    </property>
+    <column>
+     <property name="text">
+      <string notr="true">1</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QCheckBox" name="ckShowPlayWnd">
+    <property name="geometry">
+     <rect>
+      <x>624</x>
+      <y>87</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>显示/隐藏播放</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>127</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>影像记录</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnRemove">
+    <property name="geometry">
+     <rect>
+      <x>77</x>
+      <y>127</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>物理删除</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnShowTags">
+    <property name="geometry">
+     <rect>
+      <x>396</x>
+      <y>126</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>显示标记</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMoveToTask">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>127</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>移动到计划</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnImagePlay">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>127</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>播放</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnRemoveFromTask">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>128</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>移出计划</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>788</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuCcj">
+    <property name="title">
+     <string>管理</string>
+    </property>
+    <addaction name="miUserMgr"/>
+    <addaction name="miTask"/>
+    <addaction name="miServerStatus"/>
+    <addaction name="miChangePwd"/>
+    <addaction name="separator"/>
+    <addaction name="miExit"/>
+   </widget>
+   <addaction name="menuCcj"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="miUserMgr">
+   <property name="text">
+    <string>用户管理</string>
+   </property>
+  </action>
+  <action name="miTask">
+   <property name="text">
+    <string>计划任务</string>
+   </property>
+  </action>
+  <action name="miServerStatus">
+   <property name="text">
+    <string>服务器状态</string>
+   </property>
+  </action>
+  <action name="miChangePwd">
+   <property name="text">
+    <string>更改用户密码</string>
+   </property>
+  </action>
+  <action name="miExit">
+   <property name="text">
+    <string>系统退出</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

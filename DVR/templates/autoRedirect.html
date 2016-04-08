@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>跳转页面</title>
+<script type="text/javascript">
+	function run() {
+		var s = document.getElementById("dd");
+		if (s.innerHTML == 0) {
+			window.location.href = '{{reurl}}';
+			return false;
+		}
+		s.innerHTML = s.innerHTML * 1 - 1;
+	}
+	window.setInterval("run();", 1000);
+</script>
+</head>
+<body>
+<table border="0" cellpadding="5" cellspacing="1" width="400"
+	align="center" class="stable"
+	style="font-size: 12px; border-collapse: collapse; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-color: rgb(221, 238, 255); border-right-color: rgb(221, 238, 255); border-bottom-color: rgb(221, 238, 255); border-left-color: rgb(221, 238, 255); border-image: initial; font-family: Arial; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;">
+  <tbody style="font-size: 12px;">
+    <tr style="font-size: 12px;">
+      <th colspan="2"
+				style="font-size: 9pt; color: rgb(0, 0, 0); font-family: Arial; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: rgb(170, 187, 204); padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(221, 238, 255); text-align: left; background-position: initial initial; background-repeat: initial initial;">系统提示</th>
+    </tr>
+    <tr style="font-size: 12px;">
+      <td width="30%"
+				style="font-size: 9pt; color: rgb(0, 0, 0); font-family: Arial; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: rgb(221, 238, 255); padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; text-align: right; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;"><img
+				src="/static/imgs/info.png"
+				style="font-size: 12px; margin-right: 20px;"></td>
+      <td
+				style="font-size: 14px; color: rgb(0, 0, 0); font-family: Arial; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: rgb(221, 238, 255); padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; text-align: left; height: 200px; line-height: 21px;">{{tip}}<span
+				class="Apple-converted-space"> </span><br style="font-size: 12px;">
+        <br style="font-size: 12px;">
+        <div
+				style="font-size: 9pt; color: rgb(0, 0, 0); font-family: Arial; clear: both;">
+				<a	href="{{reurl}}" class="btn" style="font-size: 9pt; color: rgb(86, 86, 86); font-family: Arial; text-decoration: none; display: block; float: left; margin-top: 0px; margin-right: 7px; margin-bottom: 0px; margin-left: 0px; background-color: rgb(238, 238, 238); border-right-width: 1px; border-bottom-width: 1px; border-right-style: solid; border-bottom-style: solid; border-right-color: rgb(170, 170, 170); border-bottom-color: rgb(170, 170, 170); border-image: initial; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(238, 238, 238); border-left-width: 1px; border-left-style: solid; border-left-color: rgb(238, 238, 238); padding-top: 3px; padding-right: 10px; padding-bottom: 3px; padding-left: 10px;">立即跳转</a></div>
+        <div style="font-size: 9pt; color: rgb(0, 0, 0); font-family: Arial; clear: both;"><span id="dd">2</span>秒后自动跳转</div></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

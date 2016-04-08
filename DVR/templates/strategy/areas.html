@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<STYLE type=text/css> 
+{
+	FONT-SIZE: 12px
+}
+.gridView {
+	BORDER-RIGHT: #bad6ec 1px; BORDER-TOP: #bad6ec 1px; BORDER  -LEFT: #bad6ec 1px; COLOR: #566984; BORDER-BOTTOM: #bad6ec 1px; FONT-FAMILY: Courier New
+}
+.gridViewHeader {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BACKGROUND-IMAGE: url(/static/imgs/images/bg_th.gif); BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 27px; BORDER-BOTTOM: #bad6ec 1px solid
+}
+.gridViewItem {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 32px; BORDER-BOTTOM: #bad6ec 1px solid; TEXT-ALIGN: left
+}
+.cmdField {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_rectbtn.png); OVERFLOW: hidden; BORDER-LEFT: 0px; WIDTH: 67px; COLOR: #364c6d; LINE-HEIGHT: 27px; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 27px; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none
+}
+.buttonBlue {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_button_blue.gif); BORDER-LEFT: 0px; WIDTH: 78px; COLOR: white; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 21px
+}
+</STYLE>
+
+
+<style> 
+  
+body{ padding:0; margin:0;} 
+  
+</style> 
+<script type="text/javascript" src="/static/js/jquery-1.3.1.js"></script>  
+<script type="text/javascript" src="http://app.mapabc.com/apis?&t=ajaxmap&v=2.1.2&key=f6c97a7f64063cfee7c2dc2157847204d4dbf09300aa05a7d453f2b0f840dc13c40f2cca44bb6418"></script> 
+  
+<script type="text/javascript"> 
+  
+var mapObj; 
+  
+function mapInit() {//地图初始化 
+  
+    var mapOptions = new MMapOptions();//构建地图辅助类 
+  
+    mapOptions.zoom=13;//要加载的地图的缩放级别 
+  
+    mapOptions.center=new MLngLat(121.473693,31.230353);//要加载的地图的中心点经纬度坐标 
+  
+    mapOptions.toolbar = DEFAULT;//设置地图初始化工具条 
+  
+    mapOptions.toolbarPos = new MPoint(15,15); //设置工具条在地图上的显示位置 
+  
+    mapOptions.overviewMap = SHOW; //设置鹰眼地图的状态，SHOW:显示，HIDE:隐藏（默认） 
+  
+    mapOptions.scale = SHOW; //设置地图初始化比例尺状态，SHOW:显示（默认），HIDE:隐藏。 
+  
+    mapOptions.returnCoordType = COORD_TYPE_OFFSET;//返回数字坐标 
+  
+    mapOptions.zoomBox = true;//鼠标滚轮缩放和双击放大时是否有红框动画效果。 
+  
+    mapObj=new MMap("map",mapOptions); //地图初始化 
+	mapObj.addEventListener(mapObj,ADD_OVERLAY,addOverlayEvent);
+	setArea(); 
+} 
+
+var regionId="1";
+function addOverlayEvent(param){
+		mapObj.removeOverlayById(regionId);
+		regionId=param.overlayId; 
+		var overlay=mapObj.getOverlayById(param.overlayId);
+		/*document.getElementById("id_area").value=overlay.lnglatArr[0].lngX+"  "+overlay.lnglatArr[0].latY+" "+overlay.lnglatArr[1].lngX+"  "+overlay.lnglatArr[1].latY;*/
+		southWestlngX = overlay.lnglatArr[0].lngX.toFixed(5);
+		southWestlatY = overlay.lnglatArr[0].latY.toFixed(5);
+		northEastlngX = overlay.lnglatArr[1].lngX.toFixed(5)
+		notthEastlatY = overlay.lnglatArr[1].latY.toFixed(5)
+		detaLngX =  northEastlngX -southWestlngX;
+		detaLatY =  notthEastlatY  - southWestlatY
+		var lgx=(overlay.lnglatArr[1].lngX-overlay.lnglatArr[0].lngX);
+		var lty=(overlay.lnglatArr[1].latY-overlay.lnglatArr[0].latY);
+		document.getElementById("id_area_map").value=southWestlngX+","+southWestlatY+","+detaLngX+","+detaLatY;
+		area2Value= "西南角坐标:\n经度:"+southWestlngX+"\n纬度:"+southWestlatY+"\n东北角坐标:\n经度:"+northEastlngX+"\n纬度:"+notthEastlatY;
+		document.getElementById("id_area2").value=area2Value;
+		mapObj.setCurrentMouseTool(PAN_WHEELZOOM);
+}
+function addRectangle(area){ //在地图上画矩形
+	   // mapObj.removeAllOverlays();//删除地图对象上所有覆盖物
+	    var arr = new Array();
+	    arr.push(new MLngLat(area.x1,area.y1));
+	    arr.push(new MLngLat(area.x2,area.y2));
+	    var linestyle=new MLineStyle();//创建线样式对象
+	    linestyle.thickness=3;//线的粗细度，默认为2
+	    linestyle.color=0x0000ff;//线的颜色，16进制整数，默认为0x005890（蓝色）
+
+	    var fillstyle=new MFillStyle();//创建填充样式对象
+	    fillstyle.color=0xf5deb3;//面的填充颜色，16进制整数。
+	    fillstyle.alpha=0.5;//填充面的透明度，范围0~1，0为透明，1为不透明（默认）
+
+	    var areastyle=new MAreaStyle();//创建面样式对象
+	    areastyle.borderStyle=linestyle;//面的边框风格。
+	    areastyle.fillStyle=fillstyle;//面的填充风格。
+
+	    var tipoption=new MTipOptions();//添加信息窗口
+	    tipoption.title="信息窗口标题";//信息窗口标题
+	    tipoption.content="信息窗口内容";//信息窗口内容
+
+	    var labeloption=new MLabelOptions();//添加标注
+	    labeloption.content="矩形";//标注的内容
+	    //设置标注左上角相对于面对象中心的锚点。标注左上角与面对象中心重合时，像素坐标原点(0,0)
+	    labeloption.labelPosition=new MPoint(10,10);
+
+	    var areaopt = new MAreaOptions();　//构建一个名为areopt的面选项对象。
+	    areaopt.areaStyle=areastyle;//设置面的风格
+	    areaopt.tipOption=tipoption;//设置面的信息窗口参数选项
+	    areaopt.canShowTip=true;//设置面是否显示信息窗口
+	    areaopt.isEditable=false;//设置面是否为可编辑状态，true，可编辑；false，不可编辑（默认）
+	    areaopt.labelOption=labeloption;//设置面的标注选项参数
+
+	    var rectangle = new MRectangle(arr,areaopt);//通过由左上、右下角组成的经纬度数组和参数选项构建矩形对象
+	    rectangle.id=regionId+1;// 对象编号，也是对象的唯一标识
+	    mapObj.addOverlay(rectangle,true);//向地图添加覆盖物
+}		
+function get_area_by_mesh()
+{
+	var mesh=prompt("请输入图幅编号","H51F009013")
+	if (mesh!=null && mesh!="")
+	  {
+		var area = mesh2area(mesh);
+		//此处先把GPS坐标转换为地图坐标再画矩形//
+		addRectangle(area);
+	  }
+}
+function mesh2area(mesh){
+    var area ={};
+    
+    var diff_lat = 5/60             // 1：2.5万纬差
+    var diff_lon = 7/60+30/3600     // 1：2.5万经差
+    if (mesh.length != 10){
+        return -1
+    }
+    a = mesh.charCodeAt(0) - 65 + 1
+    b = mesh.substring(1,3) // int(mesh[1:3])
+    c = mesh.substring(4,7)  //int(mesh[4:7])
+    d = mesh.substring(7,10)
+
+    southwest_x = (b - 31) * 6 + (d - 1) * diff_lon
+    southwest_y = (a - 1) * 4 + (4 / diff_lat - c) * diff_lat
+
+    northeast_x = southwest_x + diff_lon
+    northeast_y = southwest_y + diff_lat
+    
+    area.x1 = southwest_x.toFixed(5)
+    area.y1 = southwest_y.toFixed(5)
+    
+    area.x2 = northeast_x.toFixed(5)
+    area.y2 = northeast_y.toFixed(5)
+    
+    area.height = diff_lat.toFixed(5)    
+    area.width = diff_lon.toFixed(5)
+    
+    return area 
+
+}
+
+
+function saveArea(button){
+	var button = button;
+    var name = $("#id_name").val();
+    var area_map =$("#id_area_map").val();
+    var group =$("#id_group").val();
+    if(!name){
+        alert("请输入区域名称!");
+        return false;
+    }
+    if(!area_map){
+        alert("请选择区域!");
+        return false;
+    }
+    if(!group){
+        alert("请选择组名称!");
+        return false;
+    }
+    if(button.name=="save"){
+    	save(name,area_map,group);
+    }else{
+    	edit(name,area_map,group);
+    }
+    
+    
+}
+function save(name,area_map,group){
+	$.post("/strategy/area/add/", {
+        name:name,
+        area_map:area_map,
+        group:group,
+        csrfmiddlewaretoken:$("[name=csrfmiddlewaretoken]").val(),
+        },function(data,textStatus){
+            if(data=="1"){
+                alert("区域添加成功!")
+            }else{
+                alert("区域添加失败!")
+            }
+        }
+    );
+}
+function edit(name,area_map,group){
+	var id = $("#id").val();
+	var url = "/strategy/area/edit/"+id+"/"
+	$.post(url, {
+        name:name,
+        area_map:area_map,
+        group:group,
+        csrfmiddlewaretoken:$("[name=csrfmiddlewaretoken]").val(),
+        },function(data,textStatus){
+            if(data=="1"){
+                alert("区域修改成功!")
+            }else{
+                alert("区域修改失败!")
+            }
+        }
+    );
+}
+</script> 
+<META content="MSHTML 6.00.2900.5848" name=GENERATOR>
+</HEAD>
+
+<BODY 
+style="BACKGROUND-POSITION-Y: -120px; BACKGROUND-IMAGE: url(/static/imgs/bg.gif); BACKGROUND-REPEAT: repeat-x"  onload="mapInit();">
+<form name="form1" method="post" action="">{% csrf_token %}
+
+<DIV>
+
+  <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+    <TBODY>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/bg_header.gif); BACKGROUND-REPEAT: repeat-x"
+  height=47>
+
+        <TD><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hl2.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN><SPAN
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hb.gif); PADDING-BOTTOM: 10px; COLOR: white; PADDING-TOP: 10px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 47px; TEXT-ALIGN: center; 0px: ">区域添加 </SPAN><SPAN
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hr.gif); WIDTH: 60px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>
+      </TR>
+      <TR>
+
+        <TD 
+    style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; COLOR: #566984; PADDING-TOP: 10px; BACKGROUND-COLOR: white" 
+    vAlign=top align=middle>
+          <DIV>
+		  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #C2E1F4;">
+            <tr>
+              <td width="930" align="center"><div id="map" style="width:100%; height:700px;"></div></td>
+              <td align="left" valign="top">
+                <br/> 区域名称：{{form.name}}<br/><br/>
+                <input type="hidden" name="id" id="id" value="{{form.instance.id}}" ></input>
+<!--                <input type="text" name="id_name" id="id_name" />&nbsp;&nbsp;<br/><br/>-->
+                 <input name="area_select1" type="button" class="buttonBlue" value="框选区域"  onclick="mapObj.setCurrentMouseTool(DRAW_RECTANGLE)"/>
+                 <input name="area_select2" type="button" class="buttonBlue" value="图幅号获取区域"  onclick="get_area_by_mesh()"/><br />
+                区域范围：<textarea id="id_area2" name="area2" cols="20" rows="6" readonly="readonly" style="background-color: gray;"></textarea>
+                 {{form.area_map}}
+
+<!--                <input type="text" name="id_area" id="id_area" />   <br/><br/>-->
+                所属区域组:   {{form.group}}
+<!--                <select name="id_group" id="id_group">-->
+<!--                  <option>请选择所属区域分组</option>-->
+<!--                </select> -->
+                <br/>
+                <br/>
+                {% if form.instance.id %}
+                <input name="edit" type="button" class="buttonBlue" onclick="saveArea(this)" value="修改" />
+                  
+                {% else %}
+                <input name="save" type="button" class="buttonBlue" onclick="saveArea(this)" value="添加" /><input name="Submit2" type="reset" class="buttonBlue" value="重置" />
+                {% endif %}
+                </td>
+            </tr>
+
+          </table>
+		  <br/>
+		  
+ 
+          </DIV>
+        </TD>
+      </TR>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/main_fs.gif); BACKGROUND-REPEAT: repeat-x"
+  height=10>
+      </TR>
+    </TBODY>
+  </TABLE>
+</DIV>
+
+</form>
+<script type="text/javascript">
+function setArea(){
+    {% if form.instance.id %}
+    var area = {}
+    a = 12.345;
+    var area_map = "{{form.instance.area_map}}";
+    var area_map_arr = area_map.split(",");
+    area.x1 = parseFloat(parseFloat(area_map_arr[0]).toFixed(5));
+    area.y1 = parseFloat(parseFloat(area_map_arr[1]).toFixed(5));
+    deltaLon = parseFloat(parseFloat(area_map_arr[2]).toFixed(5));
+    deltaLat = parseFloat(parseFloat(area_map_arr[3]).toFixed(5));
+    area.x2 = area.x1 + deltaLon;
+    area.y2 = area.y1 + deltaLat;
+    area2Value= "西南角坐标:\n经度:"+area.x1+"\n纬度:"+area.y1+"\n东北角坐标:\n经度:"+area.x2+"\n纬度:"+area.y2;
+    $("#id_area2").val(area2Value);
+    addRectangle(area);
+    //$("#addduser-form").attr("action","/system/user_edit/{{form.instance.id}}/")
+ {% else %}
+    
+    
+ {% endif %}
+}
+
+</script>
+</BODY>
+
+</HTML>
+

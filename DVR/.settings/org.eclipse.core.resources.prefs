@@ -1,0 +1,12 @@
+#Wed Jul 25 13:48:00 CST 2012
+eclipse.preferences.version=1
+encoding//device/urls.py=utf-8
+encoding//device/views.py=utf-8
+encoding//monitoring/urls.py=utf-8
+encoding//monitoring/views.py=utf-8
+encoding//strategy/urls.py=utf-8
+encoding//strategy/views.py=utf-8
+encoding//system/models.py=utf-8
+encoding//system/urls.py=utf-8
+encoding//utils/mesh2coord.py=utf-8
+encoding/urls.py=utf-8

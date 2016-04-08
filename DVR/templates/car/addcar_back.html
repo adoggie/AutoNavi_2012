@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Contact us</title>
+</head>
+<body>
+    <h1>Contact us</h1>
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+        <div class="field">
+            {{ form.vehicle_num.errors }}
+            {{ form.vehicle_num.label }}
+<!--            <label for="id_vehicle_num">vehicle_num:</label>-->
+            {{ form.vehicle_num }}
+        </div>
+        <div class="field">
+            {{ form.name.errors }}
+            <label for="id_name">name:</label>
+            {{ form.name }}
+        </div>
+        <div class="field">
+            {{ form.driver.errors }}
+            <label for="id_driver">driver:</label>
+            {{ form.driver }}
+        </div>
+        <div class="field">
+            {{ form.tel.errors }}
+            <label for="id_tel">tel:</label>
+            {{ form.tel }}
+        </div>
+        <div class="field">
+            {{ form.descri.errors }}
+            <label for="id_descri">descri:</label>
+            {{ form.descri }}
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

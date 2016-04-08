@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>加载地图示例</title>
+
+    <script type="text/javascript" src="http://app.mapabc.com/apis?&t=ajaxmap&v=2.1.2&key=f6c97a7f64063cfee7c2dc2157847204d4dbf09300aa05a7d453f2b0f840dc13c40f2cca44bb6418"></script>
+
+    <script type="text/javascript">
+        var mapObj;
+        function mapInit() {
+            var mapOptions = new MMapOptions();//构建地图辅助类
+            mapOptions.zoom=13;//设置地图zoom级别
+            mapOptions.center=new MLngLat(116.397428,39.90923);   //设置地图中心点
+            mapOptions.toolbar = DEFAULT;//工具条
+            mapOptions.toolbarPos = new MPoint(15,15);	//工具条
+            mapOptions.overviewMap = SHOW;//是否显示鹰眼
+            mapOptions.scale = SHOW;//是否显示比例尺
+            mapOptions.returnCoordType = COORD_TYPE_OFFSET;//返回数字坐标
+            mapOptions.zoomBox = true;//鼠标滚轮缩放和双击放大时是否有红框动画效果。
+            mapObj=new MMap("iCenter",mapOptions); //地图初始
+        }
+    </script>
+</head>
+<body onload="mapInit();">
+<div style="width:500px; height:500px;">
+    <div id="iCenter" style="width:500px; height:500px;"></div>
+</div>
+</body>
+</html>

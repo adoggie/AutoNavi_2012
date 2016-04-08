@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>area view</title>
+<STYLE type=text/css> 
+{
+	FONT-SIZE: 12px
+}
+.gridView {
+	BORDER-RIGHT: #bad6ec 1px; BORDER-TOP: #bad6ec 1px; BORDER -LEFT:#bad6ec 1px; COLOR: #566984; BORDER-BOTTOM: #bad6ec 1px; FONT-FAMILY: Courier New
+}
+.gridViewHeader {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BACKGROUND-IMAGE: url(/static/imgs/images/bg_th.gif); BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 27px; BORDER-BOTTOM: #bad6ec 1px solid
+}
+.gridViewItem {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 32px; BORDER-BOTTOM: #bad6ec 1px solid; TEXT-ALIGN: left
+}
+.cmdField {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_rectbtn.png); OVERFLOW: hidden; BORDER-LEFT: 0px; WIDTH: 67px; COLOR: #364c6d; LINE-HEIGHT: 27px; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 27px; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none
+}
+.buttonBlue {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_button_blue.gif); BORDER-LEFT: 0px; WIDTH: 78px; COLOR: white; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 21px
+}
+</STYLE>
+
+
+<style> 
+  
+body{ padding:0; margin:0;} 
+  
+</style> 
+  
+<script type="text/javascript" src="http://app.mapabc.com/apis?&t=ajaxmap&v=2.1.2&key=f6c97a7f64063cfee7c2dc2157847204d4dbf09300aa05a7d453f2b0f840dc13c40f2cca44bb6418"></script> 
+  
+<script type="text/javascript"> 
+  
+var mapObj; 
+  
+function mapInit() {//地图初始化 
+  
+    var mapOptions = new MMapOptions();//构建地图辅助类 
+  
+    mapOptions.zoom=13;//要加载的地图的缩放级别 
+  
+    mapOptions.center=new MLngLat(116.397428,39.90923);//要加载的地图的中心点经纬度坐标 
+  
+    mapOptions.toolbar = DEFAULT;//设置地图初始化工具条 
+  
+    mapOptions.toolbarPos = new MPoint(15,15); //设置工具条在地图上的显示位置 
+  
+    mapOptions.overviewMap = SHOW; //设置鹰眼地图的状态，SHOW:显示，HIDE:隐藏（默认） 
+  
+    mapOptions.scale = SHOW; //设置地图初始化比例尺状态，SHOW:显示（默认），HIDE:隐藏。 
+  
+    mapOptions.returnCoordType = COORD_TYPE_OFFSET;//返回数字坐标 
+  
+    mapOptions.zoomBox = true;//鼠标滚轮缩放和双击放大时是否有红框动画效果。 
+  
+    mapObj=new MMap("map",mapOptions); //地图初始化
+	mapObj.addEventListener(mapObj,ADD_OVERLAY,addOverlayEvent); 
+  
+} 
+  
+function addOverlayEvent(param){
+		var overlay=mapObj.getOverlayById(param.overlayId);
+		var lgx=(overlay.lnglatArr[1].lngX-overlay.lnglatArr[0].lngX);
+		var lty=(overlay.lnglatArr[1].latY-overlay.lnglatArr[0].latY);
+		document.getElementById("id_area").value=overlay.lnglatArr[0].lngX+","+overlay.lnglatArr[0].latY+","+lgx+","+lty;
+		}
+		
+  
+</script> 
+<META content="MSHTML 6.00.2900.5848" name=GENERATOR>
+</HEAD>
+
+<BODY 
+style="BACKGROUND-POSITION-Y: -120px; BACKGROUND-IMAGE: url(/static/imgs/bg.gif); BACKGROUND-REPEAT: repeat-x"  onload="mapInit();">
+<form name="form1" method="post" action="">
+
+<DIV>
+
+  <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+    <TBODY>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/bg_header.gif); BACKGROUND-REPEAT: repeat-x"
+  height=47>
+      
+        <TD><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hl2.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN><SPAN
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hb.gif); PADDING-BOTTOM: 10px; COLOR: white; PADDING-TOP: 10px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 47px; TEXT-ALIGN: center;">区域查看 </SPAN><SPAN
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hr.gif); WIDTH: 60px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>
+        <TD 
+    style="BACKGROUND-POSITION: 50% bottom; BACKGROUND-IMAGE: url(file" 
+    width=10></TD>
+      </TR>
+      <TR>
+
+        <TD 
+    style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; COLOR: #566984; PADDING-TOP: 10px; BACKGROUND-COLOR: white" 
+    vAlign=top align=middle>
+          <DIV>
+		  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #C2E1F4;">
+            <tr>
+              <td width="950" align="center"><div id="map" style="width:100%; height:700px;"></div></td>
+              <td align="left" valign="top">&nbsp;&nbsp;
+                <table width="100%" border="0" style="width:100%">
+                  <tr>
+                    <td>区域</td>
+                  </tr>
+                    {% for  result in results.object_list %}
+                  <tr>
+                    <td>{{result.name}}</td>
+                  </tr>
+                    {% endfor %}
+                </table></td>
+            </tr>
+          </table>
+		  <br/>
+		  
+ 
+          </DIV>
+        </TD>
+
+      </TR>
+
+    </TBODY>
+  </TABLE>
+</DIV>
+
+</form>
+</BODY>
+
+</HTML>
+
+

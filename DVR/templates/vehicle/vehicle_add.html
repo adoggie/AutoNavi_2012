@@ -1,0 +1,19 @@
+<style type="text/css">
+    ul.errorlist {
+        margin: 0;
+        padding: 0;
+    }
+    .errorlist li {
+        background‐color: white;
+        color: red;
+        display: block;
+        font‐size: 10px;
+        margin: 0 0 3px;
+        padding: 4px 5px;
+    }
+</style>
+
+
+<form action="" method="post"  enctype="multipart/form-data" >{% csrf_token %}
+    {{ form.as_p }}
+<input type="submit" value="保存" />

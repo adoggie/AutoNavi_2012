@@ -1,0 +1,5 @@
+{	
+	"db":{ "name":"stoimg","host":"192.168.1.19","port":5432,"user":"postgres","passwd":"111111"},
+	"service_mgr":("192.168.1.65",12002),
+	"node_alivetime":20
+}

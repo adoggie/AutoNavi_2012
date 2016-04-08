@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>关键字搜索</title>
+<script type="text/javascript" src="/static/js/jquery-1.3.1.js"></script>
+<script language="javascript" type="text/javascript" src="/static/js/My97DatePicker/WdatePicker.js"></script>
+ <script type="text/javascript" src="http://app.mapabc.com/apis?&t=ajaxmap&v=2.1.2&key=f6c97a7f64063cfee7c2dc2157847204d4dbf09300aa05a7d453f2b0f840dc13c40f2cca44bb6418"></script>
+
+<script type="text/javascript">
+var mapObj=null;
+function mapInit() {
+    var mapOptions = new MMapOptions();//构建地图辅助类
+    mapOptions.zoom=13;//要加载的地图的缩放级别
+    mapOptions.center=new MLngLat(121.473693,31.230353);//要加载的地图的中心点经纬度坐标
+    mapOptions.toolbar = DEFAULT;//设置地图初始化工具条
+    mapOptions.toolbarPos = new MPoint(15,15); //设置工具条在地图上的显示位置
+    mapOptions.overviewMap = SHOW; //设置鹰眼地图的状态，SHOW:显示，HIDE:隐藏（默认）
+    mapOptions.scale = SHOW; //设置地图初始化比例尺状态，SHOW:显示（默认），HIDE:隐藏。
+    mapOptions.returnCoordType = COORD_TYPE_OFFSET;//返回数字坐标
+    mapOptions.zoomBox = true;//鼠标滚轮缩放和双击放大时是否有红框动画效果。
+    mapObj=new MMap("map",mapOptions); //地图初始化
+}
+
+
+function keywordSearch(){
+	//判断输入值不为空
+    var vehicle_name=$("#vehicle").val();
+    var recent=$("#recent").val();
+	if(!vehicle_name){
+		alert("车辆编号不能为空");
+		return false;
+	}
+    if(!recent){
+        alert("开始时间不能为空");
+        return false;
+    }
+    $.post("/monitoring/getRecentTrack/", {
+    	vehicle_name:vehicle_name,
+    	recent:recent,
+        csrfmiddlewaretoken:$("[name=csrfmiddlewaretoken]").val()
+        },function(data,textStatus){
+        	status = data.status
+            if(status=="success"){
+                var gps_logs = data.gps_logs;
+                if(gps_logs.length>0){
+                    addMPolyline(gps_logs);
+                }else if(gps_logs.length==0){
+                	alert("没有找到符合条件的轨迹")
+                }
+            }else{
+                alert("查询失败")
+            }
+        },"json"
+    );
+    
+}
+
+function addMarker(gps_log,i){
+
+    var markerOption = new MMarkerOptions();
+    markerOption.imageUrl ="/static/imgs/car.ico";
+    var tipOption = new MTipOptions();
+    tipOption.title="车辆编号：" +gps_log.vehicle;
+    var tipC = "<br />"+TipContents(gps_log.lon_map,gps_log.lat_map,gps_log.speed);
+    tipOption.content=tipC;//tip内容
+    tipOption.borderStyle.thickness=2;
+    tipOption.borderStyle.color= 0x005cb5;
+    tipOption.borderStyle.alpha=1;
+    tipOption.titleFontStyle.name="Arial";
+    tipOption.titleFontStyle.size=12;
+    tipOption.titleFontStyle.color= 0xffffff;
+    tipOption.titleFontStyle.bold=true;
+    tipOption.contentFontStyle.name="Arial";
+    tipOption.contentFontStyle.size=13;
+    tipOption.contentFontStyle.color= 0x000000 ;
+    tipOption.contentFontStyle.bold=false;
+    tipOption.fillStyle.color= 0xFFFFFF; //填充色
+    tipOption.fillStyle.alpha=1;
+    tipOption.titleFillStyle.color=0x005cb5;
+    tipOption.titleFillStyle.alpha=1;
+
+    markerOption.tipOption = tipOption;
+    markerOption.canShowTip=true;
+    var marker = new MMarker(new MLngLat(gps_log.lon_map,gps_log.lat_map),markerOption);
+
+    marker.id= i
+
+    mapObj.addOverlay(marker,true);
+    mapObj.addEventListener(mapObj,TIP_OPEN,openTip);
+}
+function addMPolyline(gps_logs){ 
+
+    var arr=new Array();//经纬度坐标数组
+    firstTimetick = gps_logs[0].fields.timetick;
+    var resultStr="";
+    var j = 1;
+    for(i=0;i<gps_logs.length;i++){
+        gps_log = gps_logs[i].fields;
+        arr.push(new MLngLat( gps_log.lon_map, gps_log.lat_map));
+        detaTimetick = gps_log.timetick-firstTimetick
+        if(detaTimetick%60 == 0){
+            addMarker(gps_log,j+1);
+
+            resultStr= addResult(gps_log,j,resultStr);
+            j=j+1;
+        }
+
+    }
+
+    document.getElementById("result").innerHTML = resultStr;
+
+
+    var polyline=new MPolyline(arr);//通过经纬度坐标数组及参数选项构建多折线对象，arr是经纬度坐档数组
+
+    polyline.id="polyline101";//对象编号，也是对象的唯一标识
+
+    mapObj.addOverlay(polyline,true);//向地图添加覆盖物
+
+} 
+
+
+
+
+
+
+function addResult(gps_log,j,resultStr){
+
+    resultStr += "<div id='divid"+(j+1)+"' onmouseover='openMarkTip("+(j+1)+",this)' onmouseout='onmouseout_MarkerStyle("+(j+1)+",this)' style=\"font-size: 13px;cursor:pointer;padding:2px 0 10px 5px;\">"+j+"："+"车辆编号："+ gps_log.vehicle + "<br \/>";
+    resultStr += TipContents(gps_log.lon_map,gps_log.lat_map,gps_log.speed);
+    resultStr += "<br />方向："+gps_log.direction + "°"+"<br \/></div>";
+    return resultStr;
+
+}
+
+function TipContents(type,address,tel){
+    if (type == "" || type == "undefined" || type == null || type == " undefined" || typeof type == "undefined") {
+        type = "暂无";
+    }
+    if (address == "" || address == "undefined" || address == null || address == " undefined" || typeof address == "undefined") {
+        address = "暂无";
+    }
+    if (tel == "" || tel == "undefined" || tel == null || tel == " undefined" || typeof address == "tel") {
+        tel = "0";
+    }
+    var str ="经度：" + address +"°"+ "<br>纬度：" + type +"°"+ " <br>速度："+tel+" "+"㎞/h";
+    return str;
+}
+function openMarkTip(pointid,thiss){  //根据id打开搜索结果点tip
+    thiss.style.background='#CFD6E8';
+    mapObj.openOverlayTip(pointid);
+}
+function onmouseout_MarkerStyle(pointid,thiss) {//鼠标移开后点样式恢复
+   thiss.style.background="";
+}
+function openTip(param){
+    var n = "divid"+(param.overlayId);
+    for (var i = 1; i <= resultCount; ++i){
+        var id="divid"+i;
+        document.getElementById(id).style.background='';
+        document.getElementById(id).onmouseout = function(){this.style.backgroundColor='';};
+    }
+    document.getElementById(n).style.background='#CFD6E8';
+    document.getElementById(n).onmouseout = function(){this.style.backgroundColor='#CFD6E8';};
+}
+</script>
+</head>
+<body onload="mapInit();">
+{% csrf_token %}
+<table width="989"  border="0" cellpadding="0" cellspacing="2" bgcolor="#DDDDDD">
+    <tr height="100%">
+        <td rowspan="2" style="width:750px;height:600px;"><div id="map" style="height:600px; width:750px"></div></td>
+        <td style="width:247px;border-left:1px solid #666;" valign="top" >
+        <div style="padding:5px 0px 0px 5px;font-size:12px;height:290px">
+            <div>关键字搜索<br />车  辆：<input type="text" id="vehicle" name="vehicle" value="车辆编号9" /><br />
+            最  近:<select name="recent_select" id="recent" >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="12000">12000</option>
+           </select>小时<br />
+            <input type="button" value="查询"  onclick="keywordSearch()" style="margin-left:100px"/></div>
+            <div id="result" name="result" style="height:507px;overflow:auto;width:247px;margin-top:5px"></div>
+       </div></td>
+   </tr>
+</table>
+</body>
+</html>

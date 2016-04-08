@@ -1,0 +1,7 @@
+{
+	"pluginserver":("localhost",12016),
+	"db":{ "name":"stoimg","host":"192.168.1.200","port":5432,"user":"postgres","passwd":"Abc123"},
+	'ctrlserver':('192.168.1.200',12002),
+	'xproxy.debug':false
+	
+}

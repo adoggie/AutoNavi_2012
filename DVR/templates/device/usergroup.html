@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户设备分组</title>
+<link rel="stylesheet" type="text/css" href="../../static/css/public.css">
+<script type="text/javascript">  
+        //复选框全选   
+        function checkAll(formvalue) {   
+            var roomids = document.getElementsByName(formvalue);   
+            for (var j = 0; j < roomids.length; j++) {   
+                if (roomids.item(j).checked == false) {   
+                    roomids.item(j).checked = true;   
+                }   
+            }   
+        }   
+  
+        //复选框全不选   
+        function uncheckAll(formvalue) {   
+            var roomids = document.getElementsByName(formvalue);   
+            for (var j = 0; j < roomids.length; j++) {   
+                if (roomids.item(j).checked == true) {   
+                    roomids.item(j).checked = false;   
+                }   
+            }   
+        }   
+  
+        //复选框选择转换   
+        function switchAll(formvalue) {   
+            var roomids = document.getElementsByName(formvalue);   
+            for (var j = 0; j < roomids.length; j++) {   
+                roomids.item(j).checked = !roomids.item(j).checked;   
+            }   
+        }   
+  
+    </script> 
+	<STYLE type=text/css> 
+	{
+		FONT-SIZE: 12px
+	}
+</STYLE> 
+<META content="MSHTML 6.00.2900.5848" name=GENERATOR>
+</HEAD>
+
+<BODY 
+style="BACKGROUND-POSITION-Y: -120px; BACKGROUND-IMAGE: url(../../static/imgs/bg.gif); BACKGROUND-REPEAT: repeat-x">
+<form name="form1" method="post" action="">
+
+
+<DIV>
+
+  <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+    <TBODY>
+      <TR 
+  style="BACKGROUND-IMAGE: url(../../static/imgs/bg_header.gif); BACKGROUND-REPEAT: repeat-x" 
+  height=47>
+        <TD width="10"><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(../../static/imgs/main_hl.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>
+        <TD><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(../../static/imgs/main_hl2.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN><SPAN 
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FLOAT: left; BACKGROUND-IMAGE: url(../../static/imgs/main_hb.gif); PADDING-BOTTOM: 10px; COLOR: white; PADDING-TOP: 10px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 47px; TEXT-ALIGN: center; 0px: ">用户设备分组 </SPAN><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(../../static/imgs/main_hr.gif); WIDTH: 60px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>
+        <TD 
+    style="BACKGROUND-POSITION: 50% bottom; BACKGROUND-IMAGE: url(file" 
+    width=10></TD>
+      </TR>
+      <TR>
+        <TD style="BACKGROUND-IMAGE: url(file">&nbsp;</TD>
+        <TD 
+    style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; COLOR: #566984; PADDING-TOP: 10px; BACKGROUND-COLOR: white" 
+    vAlign=top align=middle>
+          <DIV>
+		   <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #C2E1F4;">
+            <tr>
+              <td align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组名称:&nbsp;&nbsp;
+                <input name="id_name" type="text" id="id_name" /> 
+                &nbsp;&nbsp;
+                <input type="submit" name="Submit" value="添加" class="buttonBlue"/></td>
+              </tr>
+          </table>
+          <br/>
+		    <TABLE class=gridView id=ctl00_ContentPlaceHolder2_GridView1 
+      style="WIDTH: 100%; BORDER-COLLAPSE: collapse" cellSpacing=0 rules=all 
+      border=1>
+              <TBODY>
+                <TR>
+                  <TH class=gridViewHeader style="WIDTH: 50px" scope=col>&nbsp;</TH>
+                  <TH class=gridViewHeader scope=col>组ID</TH>
+                  <TH class=gridViewHeader scope=col>组名称</TH>
+                  <TH class=gridViewHeader scope=col>用户名称</TH>
+                  <TH class=gridviewHeader scope=col>更新</TH>
+                  <TH align="center" class=gridviewHeader scope=col>删除</TH>
+                </TR>
+                <TR>
+                  <TD class=gridViewItem style="WIDTH: 50px">
+                    <input name="test" type="checkbox" id="test" value="checkbox" />                  </TD>
+                  <TD class=gridViewItem>admin</TD>
+                  <TD class=gridViewItem>系统管理员</TD>
+                  <TD class=gridViewItem>admin</TD>
+                  <TD align="center" class=gridViewItem><A 
+            href="#"><img src="../../static/imgs/button_11.jpg" style="border:0;"></A></TD>
+                  <TD align="center" class=gridViewItem><A 
+            id=ctl00_ContentPlaceHolder2_GridView1_ctl02_LinkButton1 
+            onclick="return confirm('确定要删除吗？');" 
+            href="#"><img src="../../static/imgs/button_3.jpg" style="border:0;"></A> </TD>
+                </TR>
+                <TR>
+                  <TD class=gridViewItem style="WIDTH: 50px"><input name="test" type="checkbox" id="test" value="checkbox" /></TD>
+                  <TD class=gridViewItem>lili</TD>
+                  <TD class=gridViewItem>lili</TD>
+                  <TD class=gridViewItem>lili</TD>
+                  <TD class=gridViewItem><A 
+            href="#"><img src="../../static/imgs/button_11.jpg" style="border:0;"></A></TD>
+                  <TD align="center" class=gridViewItem><A 
+            id=ctl00_ContentPlaceHolder2_GridView1_ctl03_LinkButton1 
+            onclick="return confirm('确定要删除吗？');" 
+            href="#"><img src="../../static/imgs/button_3.jpg" style="border:0;"></A> </TD>
+                </TR>
+                <TR>
+                  <TD class=gridViewItem style="WIDTH: 50px"><input name="test" type="checkbox" id="test" value="checkbox" /></TD>
+                  <TD class=gridViewItem>liwei</TD>
+                  <TD class=gridViewItem>liwei</TD>
+                  <TD class=gridViewItem>liwei</TD>
+                  <TD class=gridViewItem><A 
+            href="#"><img src="../../static/imgs/button_11.jpg" style="border:0;"></A></TD>
+                  <TD align="center" class=gridViewItem><A 
+            id=ctl00_ContentPlaceHolder2_GridView1_ctl04_LinkButton1 
+            onclick="return confirm('确定要删除吗？');" 
+            href="#"><img src="../../static/imgs/button_3.jpg" style="border:0;"></A> </TD>
+                </TR>
+                <TR>
+                  <TD class=gridViewItem style="WIDTH: 50px"><input name="test" type="checkbox" id="test" value="checkbox" /></TD>
+                  <TD class=gridViewItem>ljs</TD>
+                  <TD class=gridViewItem>ljs</TD>
+                  <TD class=gridViewItem>ljs</TD>
+                  <TD class=gridViewItem><A class=cmdField 
+            href="#"><img src="../../static/imgs/button_11.jpg" style="border:0;"></A></TD>
+                  <TD align="center" class=gridViewItem><A class=cmdField 
+            id=ctl00_ContentPlaceHolder2_GridView1_ctl05_LinkButton1 
+            onclick="return confirm('确定要删除吗？');" 
+            href="#"><img src="../../static/imgs/button_3.jpg" style="border:0;"></A> </TD>
+                </TR>
+              </TBODY>
+            </TABLE>
+			<div style="width:1000" align="left">&nbsp;&nbsp;&nbsp;&nbsp;
+			  <input type="button" name="Submit" value="全选" class="buttonBlue"  onclick="checkAll('test')" />&nbsp;&nbsp;
+			  <input type="button" name="Submit2" value="反选" onclick="switchAll('test')" class="buttonBlue" />&nbsp;&nbsp;
+			  <input type="button" name="Submit3" value="全不选"  onclick="uncheckAll('test')" class="buttonBlue" />&nbsp;&nbsp;
+			  <input type="button" name="Submit4" value="删除"  class="buttonBlue" />
+			</div>
+			<div style="width:1000; text-align:center">上一页,下一页</div>
+          </DIV>
+        </TD>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+      </TR>
+      <TR 
+  style="BACKGROUND-IMAGE: url(../../static/imgs/main_fs.gif); BACKGROUND-REPEAT: repeat-x" 
+  height=10>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+        <TD 
+style="BACKGROUND-IMAGE: url(file"></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+</DIV>
+
+ </form>
+</BODY>
+
+</HTML>
+

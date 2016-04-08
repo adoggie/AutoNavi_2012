@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/static/css/leftmenu.css">
+<SCRIPT src="/static/js/leftmenu.js" type=text/javascript></SCRIPT>
+ <script type="text/javascript">
+ function ChangeDiv(ids) {              
+              var sz = document.getElementsByTagName("div");
+              for (i = 0; i < sz.length; i++) {
+                  if (sz[i].id.toString().indexOf("div") != -1) {
+                      if (sz[ i].id.toString() == "div" + ids) {
+                          if (sz[i].style.display == "none") {
+                              sz[i].style.display = "";
+                          } else {
+                              sz[i].style.display = "none";
+                          }
+                      } else {
+                          sz[i].style.display = "none";
+                      }
+                  }
+              }                 
+          }
+    </script>
+
+<META content="MSHTML 6.00.2900.5848" name=GENERATOR>
+</HEAD>
+<BODY 
+style="BACKGROUND-POSITION-Y: -120px; BACKGROUND-IMAGE: url(/static/imgs/bg.gif); BACKGROUND-REPEAT: repeat-x">
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+    <TR>
+      <TD width=10 height=29><IMG src="/static/imgs/bg_left_tl.gif"></TD>
+      <TD 
+    style="FONT-SIZE: 18px; BACKGROUND-IMAGE: url(/static/imgs/bg_left_tc.gif); COLOR: white; FONT-FAMILY: system">Main 
+        Menu</TD>
+      <TD width=10><IMG src="/static/imgs/bg_left_tr.gif"></TD>
+    </TR>
+    <TR>
+      <TD style="BACKGROUND-IMAGE: url(/static/imgs/bg_left_ls.gif)"></TD>
+      <TD id=menuTree 
+    style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; HEIGHT: 100%; BACKGROUND-COLOR: white" 
+    vAlign=top>
+	 <div>
+   
+     <div style="float: left" id="my_menu" class="Menu">
+     
+      <div>
+        <span onclick="ChangeDiv('1')" style="cursor:pointer;" >用户管理</span>
+		<div id="div1" style="display:none;">
+		
+        <a href="/system/user_add/" target="mainFrame">用户添加</a>
+        <a href="/system/user_list/" target="mainFrame">用户管理</a>
+        <a href="/system/changePassword/" target="mainFrame">密码修改</a>
+        
+    
+      </div>
+      </div>
+      <div>
+        <span  onclick="ChangeDiv('2')" style="cursor:pointer;">车辆管理</span>
+     <div id="div2" style="display:none;">
+        <a href="/device/vehicle/add/" target="mainFrame" >车辆添加</a>
+        <a href="/device/vehicle/list/"  target="mainFrame">车辆管理</a>
+        <a href="/device/myvehiclegroup/"  target="mainFrame">车辆分组</a>
+        <a href="/device/vehicle/group/list/"  target="mainFrame">车辆组管理</a>
+      </div>
+      </div>
+    
+      <div  >
+        <span onclick="ChangeDiv('3')" style="cursor:pointer;">设备管理</span>
+		<div id="div3" style="display:none;">
+      <a href="/device/dtu/add/"  target="mainFrame">设备添加</a>
+      <a href="/device/dtu/list/"   target="mainFrame">设备管理</a>
+       <a href="/device/mydtugroup/"  target="mainFrame">设备分组</a>
+       <a href="/device/dtu/group/list/"  target="mainFrame">设备组管理</a>
+	   </div>
+      </div>
+      <div >
+        <span onclick="ChangeDiv('4')" style="cursor:pointer;">策略管理</span>
+		<div id="div4" style="display:none;">
+      <a href="/strategy/area/group/add/"  target="mainFrame">添加区域组</a>
+      <a href="/strategy/area/add/"  target="mainFrame">添加区域</a>
+      <a href="/strategy/area/list/"  target="mainFrame">查看区域</a>
+      <a href="/strategy/strategy/group/add/"  target="mainFrame">添加策略组</a>
+      <a href="/strategy/strategy_add/"  target="mainFrame">添加策略</a>
+       <a href="/strategy/strategy/list/"  target="mainFrame">策略管理</a>
+       <a href="#" target="mainFrame">策略分组</a>
+       <a href="/strategy/vehicle/strategy/" target="mainFrame">策略分配</a>
+
+        </div>
+      </div>
+       <div >
+        <span onclick="ChangeDiv('5')" style="cursor:pointer;"> 监控管理</span>
+		<div id="div5" style="display:none;">
+      <a href="/monitoring/disposition/"  target="mainFrame">查询车辆分布情况</a>
+      <a href="/monitoring/recentTrack/"  target="mainFrame">车辆最近轨迹</a>
+       <a href="/monitoring/track/" target="mainFrame">车辆历史轨迹</a>
+      
+        </div>
+      </div>  
+    </div>
+    </div>
+	
+	
+	</TD>
+      <TD style="BACKGROUND-IMAGE: url(/static/imgs/bg_left_rs.gif)"></TD>
+    </TR>
+    <TR>
+      <TD width=10><IMG src="/static/imgs/bg_left_bl.gif"></TD>
+      <TD style="BACKGROUND-IMAGE: url(/static/imgs/bg_left_bc.gif)"></TD>
+      <TD width=10><IMG 
+src="/static/imgs/bg_left_br.gif"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+</BODY>
+</HTML>

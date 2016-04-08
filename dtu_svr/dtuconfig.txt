@@ -1,0 +1,11 @@
+{
+	"sid":"das001",
+	"services":[
+		{"name":"dvr_array","enable":true,"proto":"tcp","host":"","port":15800,"codec":"codec_dvr_array"}
+	],
+	"db":{"name":"DVR","host":"localhost","port":5432,"user":"postgres","passwd":""},
+	"ctrlserver":["localhost",6002],
+	"log":"log/dtuserver"
+}
+
+

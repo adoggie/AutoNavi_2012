@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>策略分组</title>
+<STYLE type=text/css> 
+{
+	FONT-SIZE: 12px
+}
+.gridView {
+	BORDER-RIGHT: #bad6ec 1px; BORDER-TOP: #bad6ec 1px; BORDER  -LEFT: #bad6ec 1px; COLOR: #566984; BORDER-BOTTOM: #bad6ec 1px; FONT-FAMILY: Courier New
+}
+.gridViewHeader {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BACKGROUND-IMAGE: url(/static/imgs/images/bg_th.gif); BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 27px; BORDER-BOTTOM: #bad6ec 1px solid
+}
+.gridViewItem {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 32px; BORDER-BOTTOM: #bad6ec 1px solid; TEXT-ALIGN: left
+}
+.cmdField {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_rectbtn.png); OVERFLOW: hidden; BORDER-LEFT: 0px; WIDTH: 67px; COLOR: #364c6d; LINE-HEIGHT: 27px; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 27px; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none
+}
+.buttonBlue {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_button_blue.gif); BORDER-LEFT: 0px; WIDTH: 78px; COLOR: white; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 21px
+}
+</STYLE>
+<META content="MSHTML 6.00.2900.5848" name=GENERATOR>
+</HEAD>
+
+<BODY 
+style="BACKGROUND-POSITION-Y: -120px; BACKGROUND-IMAGE: url(/static/imgs/bg.gif); BACKGROUND-REPEAT: repeat-x">
+<form name="form1" method="post" action="">
+<script type="text/javascript">
+        function AddItem() {
+            for (i = 0; i < document.getElementById("id_name").length; i++) {
+                if (document.getElementById("id_name").options[i].selected == true) {
+                    var text = document.getElementById("id_name").options[i].value;
+                    var text2 = document.getElementById("id_name").options[i].text;
+                    if (document.getElementById("id_ce").length > 0) {
+                        for (j = 0; j < document.getElementById("id_ce").length; j++) {
+                            if (text == document.getElementById("id_ce").options[j].value)
+                                return;
+                        }
+                        document.getElementById("id_ce").options.add(new Option(text2, text));
+                    }
+                    else {
+                        document.getElementById("id_ce").options.add(new Option(text2, text));
+                    }
+                }
+            }
+        }
+        //删除
+        function removeitem() {
+            for (k = document.getElementById("id_ce").length - 1; k >= 0; k--) {
+                if (document.getElementById("id_ce").options[k].selected) {
+                    document.getElementById("id_ce").options.remove(k);
+                }
+            }
+        }
+        function DelAll()//删除全部
+        {
+            var lst2 = window.document.getElementById("id_ce");
+            var length = lst2.options.length;
+            for (var i = length; i > 0; i--) {
+                lst2.options[i - 1].parentNode.removeChild(lst2.options[i - 1]);
+            }
+        }
+        function aaa() {
+            var ss = "";
+            var bb = "";
+            for (h = 0; h < document.getElementById("id_ce").length; h++) {
+                ss += document.getElementById("sjr").options[h].value + ",";
+            }
+            if (ss.length > 1)
+                ss = ss.substr(0, ss.length - 1);
+           document.getElementById("HiddenField1").value=ss;
+           
+        }
+    </script>
+
+<DIV>
+
+  <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+    <TBODY>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/bg_header.gif); BACKGROUND-REPEAT: repeat-x" 
+  height=47>
+       <!-- <TD width="10"><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hl.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>-->
+        <TD><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hl2.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN><SPAN 
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hb.gif); PADDING-BOTTOM: 10px; COLOR: white; PADDING-TOP: 10px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 47px; TEXT-ALIGN: center; 0px: ">策略分组 </SPAN><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hr.gif); WIDTH: 60px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>
+        <TD 
+    style="BACKGROUND-POSITION: 50% bottom; BACKGROUND-IMAGE: url(file" 
+    width=10></TD>
+      </TR>
+      <TR>
+       <!-- <TD style="BACKGROUND-IMAGE: url(file">&nbsp;</TD>-->
+        <TD 
+    style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; COLOR: #566984; PADDING-TOP: 10px; BACKGROUND-COLOR: white" 
+    vAlign=top align=middle>
+          <DIV>
+		  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #C2E1F4;">
+            <tr>
+              <td align="center">组名称:&nbsp;&nbsp;
+                <input name="id_groupname" type="text" id="id_groupname" /> &nbsp;&nbsp; <input type="submit" name="Submit" value="添加" /></td>
+              </tr>
+          </table>
+		  <br/>
+		  <table align="center" border="0" width="600px"  >
+				<tr>
+					<td height="25" colSpan="3" >&nbsp;请选择分组&gt;&gt;</td>
+	            </tr>
+				<tr>
+					<td width="250px" align="center">
+                         
+                      组名:
+                        <select name="select">
+                          <option>请选择组名</option>
+                        </select>                    </td>
+					<td >&nbsp;</td>
+					<td width="250px"> 
+                   策略名称
+                      </td>
+				</tr>
+				<tr>
+					<td align="center" height="260"  ><textarea name="id_name" rows="14" id="id_name"></textarea>
+					  <br />
+                  </td>
+					<td align="center">
+						<input class="input2" onclick="AddItem();" type="button" value=">>>" name="Submit" />&nbsp;<br>
+						<br>
+                        <input class="input2" type="button" value="删除" name="Submit2" onclick="removeitem();" />
+                        <br />
+                        <br />
+                        <input id="Button1" type="button" value="清空" class="input2" onclick="DelAll();" /><br />
+                        
+                  </td>
+				  <td><textarea name="id_ce" rows="14" id="id_ce"></textarea>                  </td>
+				</tr>
+				<tr>
+					<td height="25" colSpan="3" align="center">
+                       
+						<input type="hidden" name="hiddenField" id="HiddenField1"  onclick="aaa();"/>
+					  <input type="submit" name="Submit3" value="确定" class="buttonBlue"  />
+                      <asp:Button ID="Button2" runat="server" Text="确定" CssClass="input2" onclick="Button2_Click" OnClientClick="aaa();" />
+						&nbsp;&nbsp;&nbsp; 
+                        <input class="buttonBlue"   type="reset" value="取消" name="Submit4" onclick="window.close();" >
+						&nbsp;</td>
+	  </tr>
+	</table>
+ <!--           <TABLE class=gridView id=ctl00_ContentPlaceHolder2_GridView1 
+      style="WIDTH: 100%; BORDER-COLLAPSE: collapse" cellSpacing=0 rules=all 
+      border=1>
+              <TBODY>
+                <TR>
+                  <TH width="200" align="right" class=gridViewHeader scope=col>策略名称:</TH>
+                  <TH width="300" align="left" class=gridViewHeader scope=col>
+                    <input name="id_name" type="text" id="id_username">
+                 
+                  </TH>
+                  <TH width="200" align="right" class=gridViewHeader scope=col>区域名:</TH>
+                  <TH class=gridViewHeader scope=col align="left"><select name="select" style="width:100;">
+                  </select>
+                  </TH>
+                </TR>
+                <TR>
+                  <TD width="200" align="right"  class=gridViewHeader scope=col>年:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_year" type="text" id="id_year"></TD>
+                  <TD width="200" align="right" class=gridViewHeader>月:</TD>
+                  <TD class=gridViewItem><input name="id_month" type="text" id="id_month" /></TD>
+                </TR>
+                <TR>
+                  <TD width="200" align="right" class=gridViewHeader>日:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_day" type="text" id="id_day"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>邮箱:</TD>
+                  <TD class=gridViewItem><input name="id_email" type="text" id="id_email"></TD>
+                </TR>
+                <TR>
+                  <TD width="200" align="right" class=gridViewHeader>开始时点:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_starttime" type="text" id="id_starttime"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>结束时点:</TD>
+                  <TD class=gridViewItem><input name="id_endtime" type="text" id="id_endtime"></TD>
+                </TR>
+				
+                <TR>
+                  <TD width="200" align="right" class=gridViewHeader>组名:</TD>
+                  <TD colspan="3" align="left" class=gridViewItem><select name="id_groupname" id="id_groupname">
+                  </select>
+                  </TD>
+                </TR>
+				 <TR>
+                  <TD colspan="4" align="center" class=gridViewHeader><input type="submit" name="Submit" value="添加" >&nbsp;&nbsp;
+                    <input type="reset" name="Submit2" value="重置"></TD>
+                </TR>
+              </TBODY>
+            </TABLE>-->
+          </DIV>
+        </TD>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+      </TR>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/main_fs.gif); BACKGROUND-REPEAT: repeat-x" 
+  height=10>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+        <TD 
+style="BACKGROUND-IMAGE: url(file"></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+</DIV>
+
+ </form>
+</BODY>
+
+</HTML>
+
+

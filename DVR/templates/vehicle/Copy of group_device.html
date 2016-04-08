@@ -1,0 +1,29 @@
+<script type="text/javascript">
+function clickselect(){
+	document.getElementById("dtu").options.add(new Option("厦门aaa","1"));
+	//alert(document.getElementById("devicegroup").options[2].value) 
+}
+</script>
+分组1
+<select style="width:100px">
+<option value ="1">1</option>
+<option value ="2">2</option>
+</select>
+<select mu size="10" class="group" id="devicegroup"  style="width:100px;height:165" onclick="clickselect()">
+{% for group in groups %}
+  <option value ="{{group.id}}">{{group}}</option>
+ {% endfor %}
+</select>
+ <input type="button" value=">>" name="button1" />
+ <input type="button" value="<<" name="button2" />
+ 分组2
+<select style="width:100px">
+<option value ="1">1</option>
+<option value ="2">2</option>
+</select>
+<select  size="10" class="dtu" id="dtu" style="width:100px;height:165">
+{% for DGR in DGRs %}
+  <option value ="{{DGR.dtu}}">{{DGR.dtu}}</option>
+ {% endfor %}
+</select>
+

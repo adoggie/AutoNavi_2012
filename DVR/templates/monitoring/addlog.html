@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<STYLE type=text/css> 
+{
+	FONT-SIZE: 12px
+}
+.gridView {
+	BORDER-RIGHT: #bad6ec 1px; BORDER-TOP: #bad6ec 1px; BORDER  -LEFT: #bad6ec 1px; COLOR: #566984; BORDER-BOTTOM: #bad6ec 1px; FONT-FAMILY: Courier New
+}
+.gridViewHeader {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BACKGROUND-IMAGE: url(/static/imgs/images/bg_th.gif); BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 27px; BORDER-BOTTOM: #bad6ec 1px solid
+}
+.gridViewItem {
+	BORDER-RIGHT: #bad6ec 1px solid; BORDER-TOP: #bad6ec 1px solid; BORDER-LEFT: #bad6ec 1px solid; LINE-HEIGHT: 32px; BORDER-BOTTOM: #bad6ec 1px solid; TEXT-ALIGN: left
+}
+.cmdField {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_rectbtn.png); OVERFLOW: hidden; BORDER-LEFT: 0px; WIDTH: 67px; COLOR: #364c6d; LINE-HEIGHT: 27px; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 27px; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none
+}
+.buttonBlue {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND-IMAGE: url(/static/imgs/bg_button_blue.gif); BORDER-LEFT: 0px; WIDTH: 78px; COLOR: white; BORDER-BOTTOM: 0px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 21px
+}
+</STYLE>
+<META content="MSHTML 6.00.2900.5848" name=GENERATOR>
+</HEAD>
+
+<BODY 
+style="BACKGROUND-POSITION-Y: -120px; BACKGROUND-IMAGE: url(/static/imgs/bg.gif); BACKGROUND-REPEAT: repeat-x">
+<form name="form1" method="post" action="">
+
+
+<DIV>
+
+  <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+    <TBODY>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/bg_header.gif); BACKGROUND-REPEAT: repeat-x" 
+  height=47>
+       <!-- <TD width="10"><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hl.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>-->
+        <TD><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hl2.gif); WIDTH: 15px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN><SPAN 
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hb.gif); PADDING-BOTTOM: 10px; COLOR: white; PADDING-TOP: 10px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 47px; TEXT-ALIGN: center; 0px: ">GPS实时信息添加</SPAN><SPAN 
+      style="FLOAT: left; BACKGROUND-IMAGE: url(/static/imgs/main_hr.gif); WIDTH: 60px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 47px"></SPAN></TD>
+        <TD 
+    style="BACKGROUND-POSITION: 50% bottom; BACKGROUND-IMAGE: url(file" 
+    width=10></TD>
+      </TR>
+      <TR>
+       <!-- <TD style="BACKGROUND-IMAGE: url(file">&nbsp;</TD>-->
+        <TD 
+    style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; COLOR: #566984; PADDING-TOP: 10px; BACKGROUND-COLOR: white" 
+    vAlign=top align=middle>
+          <DIV>
+		 
+		  
+            <TABLE class=gridView id=ctl00_ContentPlaceHolder2_GridView1 
+      style="WIDTH: 100%; BORDER-COLLAPSE: collapse" cellSpacing=0 rules=all 
+      border=1>
+              <TBODY>
+                <TR>
+                  <TH width="200" align="right" class=gridViewHeader scope=col>设备id:</TH>
+                  <TH width="300" align="left" class=gridViewHeader scope=col><select name="select2">
+                    <option>请选择设备</option>
+                  </select>
+                  </TH>
+                  <TH width="200" align="right" class=gridViewHeader scope=col>车牌号:</TH>
+                  <TH class=gridViewHeader scope=col align="left"><select name="id_car" id="id_car" style="width:100;">
+                    <option>请选择车牌号</option>
+                  </select>
+                  </TH>
+                </TR>
+                <TR>
+                  <TD width="200" align="right"  class=gridViewHeader scope=col>经度:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_lon" type="text" id="id_lon"></TD>
+                  <TD width="200" align="right" class=gridViewHeader>纬度:</TD>
+                  <TD class=gridViewItem><input name="id_lat" type="text" id="id_lat" /></TD>
+                </TR>
+                <TR>
+                  <TD width="200" align="right" class=gridViewHeader>时间:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_time" type="text" id="id_time"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>速度:</TD>
+                  <TD class=gridViewItem><input name="id_speed" type="text" id="id_speed"></TD>
+                </TR>
+                <TR>
+                  <TD width="200" align="right" class=gridViewHeader>方向:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_direction" type="text" id="id_direction"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>ACC:</TD>
+                  <TD class=gridViewItem><input name="id_acc" type="text" id="id_acc"></TD>
+                </TR>
+				 <TR>
+                  <TD width="200" align="right" class=gridViewHeader>GSM状态:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_GSM" type="text" id="id_GSM"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>GPS状态:</TD>
+                  <TD class=gridViewItem><input name="id_gps" type="text" id="id_gps"></TD>
+                </TR>
+				 <TR>
+                  <TD width="200" align="right" class=gridViewHeader>主机状态:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_dHost_status" type="text" id="id_dHost_status"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>报警状态:</TD>
+                  <TD class=gridViewItem><input name="id_Alarm_status" type="text" id="id_Alarm_status"></TD>
+                </TR>
+				 <TR>
+                  <TD width="200" align="right" class=gridViewHeader>SD_index:</TD>
+                  <TD width="300" align="left" class=gridViewItem><input name="id_SD_index" type="text" id="id_SD_index"></TD>
+                  <TD width="200" align="right"class=gridViewHeader>AV:</TD>
+                  <TD class=gridViewItem><input name="id_av" type="text" id="id_av"></TD>
+                </TR>
+                <TR>
+                  
+                </TR>
+				 <TR>
+                  <TD colspan="4" align="center" class=gridViewHeader><input type="submit" name="Submit" value="添加"  class="buttonBlue" >&nbsp;&nbsp;
+                    <input type="reset" name="Submit2" value="重置" class="buttonBlue" ></TD>
+                </TR>
+              </TBODY>
+            </TABLE>
+          </DIV>
+        </TD>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+      </TR>
+      <TR 
+  style="BACKGROUND-IMAGE: url(/static/imgs/main_fs.gif); BACKGROUND-REPEAT: repeat-x" 
+  height=10>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+        <TD style="BACKGROUND-IMAGE: url(file"></TD>
+        <TD 
+style="BACKGROUND-IMAGE: url(file"></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+</DIV>
+
+ </form>
+</BODY>
+
+</HTML>
+
+

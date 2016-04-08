@@ -1,0 +1,12 @@
+#ifndef IMAGEPLUGIN_GLOBAL_H
+#define IMAGEPLUGIN_GLOBAL_H
+
+#include <Qt/qglobal.h>
+
+#ifdef IMAGEPLUGIN_LIB
+# define IMAGEPLUGIN_EXPORT Q_DECL_EXPORT
+#else
+# define IMAGEPLUGIN_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // IMAGEPLUGIN_GLOBAL_H
